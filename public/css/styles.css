@@ -1,0 +1,40 @@
+body {
+  text-align: center;
+  background: #33cccc;
+  font-family: helvetica;
+}
+footer {
+  text-align: left;
+}
+header {
+  background: #90A4AE;
+  width: auto 0;
+}
+footer {
+  background: #90A4AE;
+}
+a {
+  color: #000;
+}
+.input-row {
+  padding: 2px;
+}
+.login-form {
+  background: white;
+  border: solid black 2px;
+  margin: 0 auto;
+  width: 500px;
+}
+#loginBtn{
+  border-radius: 3px;
+  margin: 5px;
+}
+#loginBtn:hover{
+  border-radius: 3px;
+  background: #2196F3;
+}
+
+@media only screen and (max-width: 414px) {
+
+}
+@media only screen and (max-height: 414px) and (orientation: landscape) {
