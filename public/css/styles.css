@@ -25,6 +25,9 @@ a {
   margin: 0 auto;
   width: 500px;
 }
+.error-feedback {
+  color: red;
+}
 #loginBtn{
   border-radius: 3px;
   margin: 5px;

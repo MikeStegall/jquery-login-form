@@ -1,15 +1,21 @@
 /* global $ */
-var loginURL = 'http://127.0.0.1:7979/api/login'
+// var loginURL = 'http://127.0.0.1:7979/api/login'
 var loginBtn = $('#loginBtn')
-function successfulLogin () {
+var errorFeedback = $('.error-feedback')
+
+function successfulLogin (data) {
   window.location = 'http://127.0.0.1:7979/index.html'
 }
 
 function responseFail (error) {
-  if (error === 500) {
-    alert('We are having some difficulties Try again later')
-  } else if (error === 400) {
-    alert('Check your username and/or password!')
+  if (error.status === 400) {
+    if (error.responseText === '{"error":"Invalid username."}') {
+      errorFeedback.html('Your username is invalid')
+    } else if (error.responseText === '{"error":"Invalid password."}') {
+      errorFeedback.html('Your password is incorrect')
+    }
+  } else if (error.status === 500) {
+    errorFeedback.html('We are having some difficulties.<br>Pleasr try again later.')
   }
   loginBtn.attr('disable', false)
 }
@@ -18,16 +24,18 @@ function waitingForServer () {
   loginBtn.attr('disable', true)
 }
 
-function login () {
+function login (evt) {
+  evt.preventDefault()
   var username = $('#loginInput').val()
   var password = $('#passwordInput').val()
   if (username !== '' && password !== '') {
+    waitingForServer()
+    var loginURL = 'http://127.0.0.1:7979/api/login'
     var data = { username: username, password: password }
-    var grabingAPI = $.post(loginURL, data).done().fail(responseFail)
+    $.post(loginURL, data).done(successfulLogin).fail(responseFail)
   } else {
-    alert('Please enter username and password')
+    errorFeedback.html('Please enter username and password')
   }
 }
-
 
 loginBtn.click(login)
