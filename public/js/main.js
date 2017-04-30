@@ -38,4 +38,8 @@ function login (evt) {
   }
 }
 
+function randomNumber () {
+  return Math.floor(Math.random() * 4 + 1)
+}
+
 loginBtn.click(login)
