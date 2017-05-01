@@ -1,4 +1,4 @@
-/* global $ */
+/* global $, marked */
 // var loginURL = 'http://127.0.0.1:7979/api/login'
 var loginBtn = $('#loginBtn')
 var errorFeedback = $('.error-feedback')
@@ -42,4 +42,16 @@ function randomNumber () {
   return Math.floor(Math.random() * 4 + 1)
 }
 
+function successfulHelpFileGrab (data) {
+  $('.modal-content').html(marked(data))
+}
+
+function grabMDHelpFile () {
+  var mdFileName = 'login-help-' + randomNumber() + '.md'
+  var mdFileURL = 'http://127.0.0.1:7979/md/' + mdFileName
+  $.post(mdFileURL).done(successfulHelpFileGrab).fail(responseFail)
+}
+
 loginBtn.click(login)
+
+$('helpLoggingIn').click()
